@@ -5,17 +5,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LostInTheWoods.Models;
+using DapperApp.Factories;
 
 namespace LostInTheWoods.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly TrailFactory trailFactory;
+        public HomeController()
+        {
+            trailFactory = new TrailFactory();
+        }
+
+        [HttpGet("")]
         public IActionResult Index()
         {
+            ViewBag.Trails = trailFactory.FindAll();
             return View();
         }
 
-        public IActionResult About()
+        [HttpGet("newtrail")]
+        public IActionResult NewTrail()
         {
             ViewData["Message"] = "Your application description page.";
 
