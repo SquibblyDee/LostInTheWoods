@@ -4,7 +4,7 @@ using Dapper;
 using System.Data;
 using MySql.Data.MySqlClient;
 using LostInTheWoods.Models;
- 
+
 namespace DapperApp.Factories
 {
     public class TrailFactory : IFactory<Trail>
@@ -23,7 +23,7 @@ namespace DapperApp.Factories
         public void Add(Trail item)
         {
             using (IDbConnection dbConnection = Connection) {
-                string query =  "INSERT INTO trails (user_name, email, password, created_at, updated_at) VALUES (@Name, @Email, @Password, NOW(), NOW())";
+                string query =  "INSERT INTO trails (Name, Description, Length, Elevation, Latitude, Longitude) VALUES (@Name, @Description, @Length, @Elevation, @Latitude, @Longitude)";
                 dbConnection.Open();
                 dbConnection.Execute(query, item);
             }
@@ -41,7 +41,7 @@ namespace DapperApp.Factories
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<Trail>("SELECT * FROM trails WHERE id = @Id", new { Id = id }).FirstOrDefault();
+                return dbConnection.Query<Trail>("SELECT * FROM trails WHERE Id = @Id", new { Id = id }).FirstOrDefault();
             }
         }
 

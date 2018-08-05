@@ -32,11 +32,24 @@ namespace LostInTheWoods.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        [HttpGet]
+        [Route("trails/{id}")]
+        public IActionResult Trails(int id)
         {
-            ViewData["Message"] = "Your contact page.";
-
+            if(ModelState.IsValid)
+            ViewBag.Trails = trailFactory.FindByID(id);
             return View();
+        }
+
+        [HttpPost("process")]
+        public IActionResult Process(Trail data)
+        {
+            if(ModelState.IsValid)
+            {
+                trailFactory.Add(data);
+                return RedirectToAction("Index");
+            }
+            return View("NewTrail");
         }
 
         public IActionResult Error()

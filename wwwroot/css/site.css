@@ -33,3 +33,11 @@
         display: none;
     }
 }
+
+.header h1, h3{
+    display: inline-block;
+}
+
+.header h3{
+    float: right;
+}
